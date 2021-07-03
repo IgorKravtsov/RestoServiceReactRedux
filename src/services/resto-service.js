@@ -1,7 +1,7 @@
 export default class RestoService{
     _apiBase = 'http://localhost:3000';
 
-    async getResource(url) {
+    getResource = async (url) => {
         const res = await fetch(`${this._apiBase}${url}`);
         if (!res.ok) {
             throw new Error(`Could not fetch ${url}` +
@@ -10,11 +10,11 @@ export default class RestoService{
         return await res.json();
     }
 
-    async getMenuItems () {
+    getMenuItems = async () => {
         return await this.getResource('/menu/');
     }
 
-    async getItem(id) {
+    getItem = async (id) => {
         const res = await this.getResource('/menu/');
         console.log(res);
         const item = res.find( (el) => {
@@ -25,7 +25,7 @@ export default class RestoService{
         return item;
     }
 
-    async setOrder(order) {
+    setOrder = async (order) => {
         const number = await this.getOrderNumber();
         const newOrder = {
             id: number,
@@ -43,7 +43,7 @@ export default class RestoService{
         }
     }
 
-    async getOrderNumber(){
+    getOrderNumber = async () => {
         const res = await this.getResource('/orders/');
         const orderNumber = res.length+1;
 
